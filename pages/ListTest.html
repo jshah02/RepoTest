@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- Default page header to be included in route template -->
+
+<html>
+<head>
+	<title>Test JS ARray</title>
+	
+<style>
+
+</style>	
+
+
+</head>
+<body>
+		
+	<table  border="1px solid black">
+	  <tr>
+	    <td>County</td>	
+	    <td><input id="inputCountry" type="text" value="Canada"  />  <button type="button" onclick="fNotInCanada()" >Not listed?</button></td>
+	  </tr>
+	  
+	  <tr id="ProvSel">
+	    <td>Province</td>	
+	    <td><select id="provsel" onchange="fUpdateCities(this.value)"></select>	 </td>
+	  </tr>	
+
+	  <tr id="ProvEntry" style="display:none;" >
+	    <td>Province / State</td>	
+	    <td><input type="text" placeholder="Enter your prov / state"/> </td>
+	  </tr>	
+	  	  
+	  <tr id="CitySel">
+			<td>City</td>	
+			<td><select id="citysel">	</select>	</td>	
+	  </tr>
+
+	  <tr id="CityEntry" style="display:none;" >
+	    <td>City / Town</td>	
+	    <td><input type="text" placeholder="Enter your city / town" /> </td>
+	  </tr>		  
+	  
+
+	  <tr >
+	    <td>Street Number</td>	
+	    <td><input type="text" /> </td>
+	  </tr>		  
+	  <tr >
+	    <td>Street Name</td>	
+	    <td><input type="text" /> </td>
+	  </tr>		  	  
+	  <tr >
+	    <td>...and so on</td>	
+	    <td><input type="text" /> </td>
+	  </tr>	
+	  	  	  
+	</table>
+<p/>
+  Address not listed? <button type="button" onclick="fNotInCanada()" >Not listed?</button>
+</body>
+
+<script type="text/javascript">
+'use strict';
+
+const cCITIES = [
+
+{"city":"Airdrie","prov":"Alberta"},
+{"city":"Edmonton","prov":"Alberta"},
+{"city":"Fort McMurray","prov":"Alberta"},
+{"city":"Grande Prairie","prov":"Alberta"},
+{"city":"Leduc","prov":"Alberta"},
+{"city":"Lethbridge","prov":"Alberta"},
+{"city":"Medicine Hat","prov":"Alberta"},
+{"city":"Red Deer","prov":"Alberta"},
+{"city":"Spruce Grove","prov":"Alberta"},
+{"city":"St. Albert","prov":"Alberta"},
+{"city":"Not Listed?","prov":"Alberta"},
+{"city":"Chilliwack","prov":"British Columbia"},
+{"city":"Kamloops","prov":"British Columbia"},
+{"city":"Kelowna","prov":"British Columbia"},
+{"city":"Nanaimo","prov":"British Columbia"},
+{"city":"Prince George","prov":"British Columbia"},
+{"city":"Vancouver","prov":"British Columbia"},
+{"city":"Vernon","prov":"British Columbia"},
+{"city":"Victoria","prov":"British Columbia"},
+{"city":"White Rock","prov":"British Columbia"},
+{"city":"Vancouver","prov":"British Columbia"},
+{"city":"Altona","prov":"Manitoba"},
+{"city":"Beausejour","prov":"Manitoba"},
+{"city":"Brandon","prov":"Manitoba"},
+{"city":"Carman","prov":"Manitoba"},
+{"city":"Dauphin","prov":"Manitoba"},
+{"city":"Flin Flon","prov":"Manitoba"},
+{"city":"Garden Hill First Nation","prov":"Manitoba"},
+{"city":"Lorette","prov":"Manitoba"},
+{"city":"Morden","prov":"Manitoba"},
+{"city":"Neepawa","prov":"Manitoba"},
+{"city":"Niverville","prov":"Manitoba"},
+{"city":"Norway House 17","prov":"Manitoba"},
+{"city":"Oakbank","prov":"Manitoba"},
+{"city":"Peguis 1B","prov":"Manitoba"},
+{"city":"Portage la Prairie","prov":"Manitoba"},
+{"city":"Selkirk","prov":"Manitoba"},
+{"city":"St. Theresa Point","prov":"Manitoba"},
+{"city":"Steinbach","prov":"Manitoba"},
+{"city":"Stonewall","prov":"Manitoba"},
+{"city":"Swan River","prov":"Manitoba"},
+{"city":"The Pas","prov":"Manitoba"},
+{"city":"Thompson","prov":"Manitoba"},
+{"city":"Virden","prov":"Manitoba"},
+{"city":"Winkler","prov":"Manitoba"},
+{"city":"Winnipeg","prov":"Manitoba"},
+{"city":"Bathurst","prov":"New Brunswick"},
+{"city":"Dieppe","prov":"New Brunswick"},
+{"city":"Edmundston","prov":"New Brunswick"},
+{"city":"Fredericton","prov":"New Brunswick"},
+{"city":"Miramichi","prov":"New Brunswick"},
+{"city":"Moncton","prov":"New Brunswick"},
+{"city":"Quispamsis","prov":"New Brunswick"},
+{"city":"Riverview","prov":"New Brunswick"},
+{"city":"Saint John","prov":"New Brunswick"},
+{"city":"Tracadie","prov":"New Brunswick"},
+{"city":"Conception Bay South","prov":"Newfoundland and Labrador"},
+{"city":"Corner Brook","prov":"Newfoundland and Labrador"},
+{"city":"Gander","prov":"Newfoundland and Labrador"},
+{"city":"Grand Falls-Windsor","prov":"Newfoundland and Labrador"},
+{"city":"Happy Valley-Goose Bay","prov":"Newfoundland and Labrador"},
+{"city":"Mount Pearl","prov":"Newfoundland and Labrador"},
+{"city":"Paradise","prov":"Newfoundland and Labrador"},
+{"city":"Portugal Cove–St. Philip's","prov":"Newfoundland and Labrador"},
+{"city":"St. John's","prov":"Newfoundland and Labrador"},
+{"city":"Torbay","prov":"Newfoundland and Labrador"},
+{"city":"Behchoko","prov":"Northwest Territories"},
+{"city":"Fort Smith","prov":"Northwest Territories"},
+{"city":"Hay River","prov":"Northwest Territories"},
+{"city":"Inuvik","prov":"Northwest Territories"},
+{"city":"Yellowknife","prov":"Northwest Territories"},
+{"city":"Annapolis","prov":"Nova Scotia"},
+{"city":"Cape Breton","prov":"Nova Scotia"},
+{"city":"Colchester","prov":"Nova Scotia"},
+{"city":"Cumberland","prov":"Nova Scotia"},
+{"city":"East Hants","prov":"Nova Scotia"},
+{"city":"Halifax","prov":"Nova Scotia"},
+{"city":"Kings","prov":"Nova Scotia"},
+{"city":"Lunenburg","prov":"Nova Scotia"},
+{"city":"Pictou","prov":"Nova Scotia"},
+{"city":"West Hants","prov":"Nova Scotia"},
+{"city":"Arviat","prov":"Nunavut"},
+{"city":"Iqaluit","prov":"Nunavut"},
+{"city":"Rankin Inlet","prov":"Nunavut"},
+{"city":"Barrie","prov":"Ontario"},
+{"city":"Guelph","prov":"Ontario"},
+{"city":"Hamilton","prov":"Ontario"},
+{"city":"Kitchener","prov":"Ontario"},
+{"city":"London","prov":"Ontario"},
+{"city":"Oshawa","prov":"Ontario"},
+{"city":"Ottawa","prov":"Ontario"},
+{"city":"St. Catharines","prov":"Ontario"},
+{"city":"Toronto","prov":"Ontario"},
+{"city":"Windsor","prov":"Ontario"},
+{"city":"Afton","prov":"Prince Edward Island"},
+{"city":"Belfast","prov":"Prince Edward Island"},
+{"city":"Charlottetown","prov":"Prince Edward Island"},
+{"city":"Cornwall","prov":"Prince Edward Island"},
+{"city":"Kensington","prov":"Prince Edward Island"},
+{"city":"Miltonvale Park","prov":"Prince Edward Island"},
+{"city":"North Shore","prov":"Prince Edward Island"},
+{"city":"Stratford","prov":"Prince Edward Island"},
+{"city":"Summerside","prov":"Prince Edward Island"},
+{"city":"Three Rivers","prov":"Prince Edward Island"},
+{"city":"Gatineau","prov":"Quebec"},
+{"city":"Laval","prov":"Quebec"},
+{"city":"Lévis","prov":"Quebec"},
+{"city":"Longueuil","prov":"Quebec"},
+{"city":"Montreal","prov":"Quebec"},
+{"city":"Québec","prov":"Quebec"},
+{"city":"Saguenay","prov":"Quebec"},
+{"city":"Sherbrooke","prov":"Quebec"},
+{"city":"Terrebonne","prov":"Quebec"},
+{"city":"Trois-Rivières","prov":"Quebec"},
+{"city":"Estevan","prov":"Saskatchewan"},
+{"city":"Lloydminster","prov":"Saskatchewan"},
+{"city":"Moose Jaw","prov":"Saskatchewan"},
+{"city":"North Battleford","prov":"Saskatchewan"},
+{"city":"Prince Albert","prov":"Saskatchewan"},
+{"city":"Regina","prov":"Saskatchewan"},
+{"city":"Saskatoon","prov":"Saskatchewan"},
+{"city":"Swift Current","prov":"Saskatchewan"},
+{"city":"Warman","prov":"Saskatchewan"},
+{"city":"Yorkton","prov":"Saskatchewan"},
+{"city":"Dawson","prov":"Yukon"},
+{"city":"Watson Lake","prov":"Yukon"},
+{"city":"Whitehorse","prov":"Yukon"}
+];
+
+
+window.onload = function()
+{
+	const aProvList = [...new Set(cCITIES.map(item => item.prov))];
+	
+	var oProvList = document.getElementById('provsel');
+	
+	aProvList.forEach(option => {
+ 		oProvList.options.add( new Option(option, option ) )
+	});
+	
+	oProvList.selectedIndex = 2;  // MB
+	
+	fUpdateCities( oProvList.value );
+	
+	document.getElementById('citysel').selectedIndex = 24;  // wpg
+	
+}
+
+function fUpdateCities( sProv ) {
+	const aCityList = cCITIES.filter( (item) => item.prov === sProv );
+	var oCityList = document.getElementById('citysel');
+	
+	   var i;
+    for(i = oCityList.options.length - 1 ; i >= 0 ; i--)
+    {
+        oCityList.remove(i);
+    }
+	
+	aCityList.forEach( option => 
+	  oCityList.options.add ( new Option( option.city, option.city ) )
+	);
+		 
+		 console.log('done');
+}
+
+function fNotInCanada () {
+	document.getElementById('inputCountry').disabled = false;
+	
+	document.getElementById('ProvSel').style.display = 'none';
+	document.getElementById('CitySel').style.display = 'none';
+	
+	document.getElementById('ProvEntry').style.display = '';
+	document.getElementById('CityEntry').style.display = '';
+}
+</script>
+
+
+</html>

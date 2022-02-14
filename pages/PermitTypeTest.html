@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+<head> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>City of Winnipeg's Permits Online</title>
+
+<style>
+
+.PermitTypeSel {
+	width: 250px;
+}	
+.TypeHeader {
+	width:30%;
+	text-align:right;
+	padding-right: 5px;
+}
+.TypeSelection {
+	width:70%;
+	text-align:left;
+	padding-left: 5px;
+	
+}
+.RowHide {
+	display:none; 
+}
+
+</style>	  
+</head>
+
+<body>
+	
+
+<table width='400px%'>
+  <tr><td colspan="2"><b>Option 1</b></td></tr>
+  <tr>
+    <td class="TypeHeader" >Permit Type:</td>	
+    <td class="TypeSelection" ><select class="PermitTypeSel" id="selFolderType" onchange="fUpdateSubCodes( this.value );" > <option value="AS" >Accessory Structure</option> 
+    	<option value="HO" >Housing</option> 
+    	<option value="PR" >Plumbing Residential</option> 
+    	<option value="PC" >Plumbing Commercial</option> 
+    	</select></td>	
+  </tr>	
+  
+  <tr id="ApplyAsList" class="RowHide">
+    <td class="TypeHeader" >Use Licence:</td>	
+    <td class="TypeSelection" ><select class="PermitTypeSel" id="selAuthUser" > <option value="" selected>Yours</option>  <option value="Beans" >Beans</option>  <option value="Seb" >Sebastian</option></select></td>	    	
+  </tr>
+  
+  <tr>
+    <td class="TypeHeader" >Sub Type:</td>	
+    <td class="TypeSelection" >
+    	<select class="PermitTypeSel" id="selFolderSubType" onchange="fUpdateWorkCodes( document.getElementById('selFolderType').value, Number( this.value ) );">  <option value="41009">Licensed Plumbing Contractor</option></select>
+   	</td>	
+  </tr>
+  
+  <tr>	
+    <td class="TypeHeader" >Work Type:</td>	
+    <td class="TypeSelection" >
+    	<select class="PermitTypeSel" id="selFolderWorkType" onchange="fCheckSelOpts();">  <option value="43245">Additional Plumbing</option><option value="43208">Drains Only (Minor Repairs)</option><option value="43280">New Multi-family Dwelling</option><option value="43204">Plumb Building Addition</option><option value="43202">Plumb Building Alteration</option><option value="43200">Plumb New Building</option><option value="43247">Plumbing Repair</option><option value="43210">Underground Only</option><option value="43206">Water Piping Only</option></select>
+    </td>
+  </tr>
+
+  
+</table>
+
+<p/>
+<table width='400px%'>
+  <tr><td colspan="2"><b>Option 2</b></td></tr>
+  <tr>
+    <td class="TypeHeader" >Permit Type:</td>	
+    <td class="TypeSelection" ><select class="PermitTypeSel" id="selFolderType"  > <option value="AS" >Accessory Structure</option> 
+    	<option value="HO" >Housing</option> 
+    	<option value="PR" >Plumbing Residential</option> 
+    	<option value="PR" >Plumbing Residential (Beans's Licence)</option> 
+    	<option value="PR" >Plumbing Residential (Sebastian's Licence)</option> 
+    	<option value="PC" >Plumbing Commercial</option> 
+    	<option value="PC" >Plumbing Commercial (Beans's Licence)</option> 
+    	<option value="PC" >Plumbing Commercial (Sebastian's Licence)</option> 
+    	</select></td>	
+  </tr>	
+  
+    <tr>
+    <td class="TypeHeader" >Sub Type:</td>	
+    <td class="TypeSelection" >
+    	<select class="PermitTypeSel" id="selFolderSubType" onchange="fUpdateWorkCodes( document.getElementById('selFolderType').value, Number( this.value ) );">  <option value="41009">Licensed Plumbing Contractor</option></select>
+   	</td>	
+  </tr>
+  
+  <tr>	
+    <td class="TypeHeader" >Work Type:</td>	
+    <td class="TypeSelection" >
+    	<select class="PermitTypeSel" id="selFolderWorkType" onchange="fCheckSelOpts();">  <option value="43245">Additional Plumbing</option><option value="43208">Drains Only (Minor Repairs)</option><option value="43280">New Multi-family Dwelling</option><option value="43204">Plumb Building Addition</option><option value="43202">Plumb Building Alteration</option><option value="43200">Plumb New Building</option><option value="43247">Plumbing Repair</option><option value="43210">Underground Only</option><option value="43206">Water Piping Only</option></select>
+    </td>
+  </tr>
+  
+</table>
+	
+
+<script>
+function fUpdateSubCodes(oVal) {
+	var oList = document.getElementById('ApplyAsList');
+	
+	if ( oVal == 'PR' || oVal == 'PC' ) {	
+		oList.classList.remove('RowHide');
+	} else {
+		oList.classList.add('RowHide');
+	}
+}
+	
+
+</script>
+
+   
+	</div>
+</div>
+</body>  
+</html>

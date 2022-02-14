@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+<html>
+<head> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>City of Winnipeg's Permits Online</title>
+<link href="/AMANDA5/eNtraprise/Permits/Winnipeg.css" rel="stylesheet" type="text/css">
+<link href="/AMANDA5/eNtraprise/Permits/winnipegca32.ico" rel="shortcut icon" />
+<script src="/AMANDA5/eNtraprise/Permits/eNtraprise.js"></script>
+<script src="/AMANDA5/eNtraprise/Permits/amandamenu.js"></script>
+
+<div style="width:100%;height:100px;">
+	<div id="CoWLogo"><img src="/AMANDA5/eNtraprise/Permits/images/header_part1.jpg" alt="City of Winnipeg Logo" width="150px;" /></div>
+	<div id="CoWBanner">PERMITS ONLINE</div>
+</div>
+
+<div id="dSideMenu" class="sideMenu">
+
+
+	<div id="smUserBox">
+		<div id="smUserCircle">
+			<div id="smUserName">JEREMY VERMETTE
+      </div>
+		</div>
+	</div>
+	<hr/>
+
+	<div class="smButton smLink" onclick="location.href='/AMANDA5/eNtraprise/Permits/menu/menu.jsp?lid=26065027permits'">HOME</div>
+	<div class="smButton smLink" onclick="location.href='/AMANDA5/eNtraprise/Permits/m5my/a_ShowFolders.jsp?lid=26065027permits&pagename=../m5my/a_ShowFolders'">ACTIVE PERMITS</div>
+	<div class="smButton smLink smCurr" onclick="location.href='/AMANDA5/eNtraprise/Permits/m4Apply/a_PickFolderType.jsp?lid=26065027permits&pagename=../m4Apply/a_PickFolderType'">APPLY FOR PERMITS</div>
+	<div class="smButton smLink" onclick="location.href='/AMANDA5/eNtraprise/Permits/renew/a_renew_term.jsp?lid=26065027permits&pagename=../renew/a_renew_term'" >LICENCE RENEWAL</div>
+	<!-- <div class="smLink" onclick="location.href='/AMANDA5/eNtraprise/Permits/m5my/a_ShowFolders.jsp?lid=26065027permits&pagename=../m5my/a_ShowFolders'" >PAYMENTS</div> -->
+	<div class="smButton smLink" onclick="location.href='/AMANDA5/eNtraprise/Permits/registration/registration_user_update.jsp?lid=26065027permits&pagename=../registration/registration_user_update'" >USER PROFILE</div>
+	<div class="smButton smLink" onclick="location.href='/AMANDA5/eNtraprise/Permits/files/file_listing.jsp?lid=26065027permits&pagename=../files/file_listing'" >FILES</div>
+		
+	<div class="smButton smLink" onclick="location.href='/AMANDA5/eNtraprise/Permits/menu/logon_a.jsp?lid='" >LOG OFF</div>
+
+	<hr/>
+	<div class="smButton smLink"><a href="//www.winnipeg.ca/ppd/permits/permits_online.stm" target="_blank">Permits Online<br/>Information</a></div>
+	<div class="smButton smLink"><a href="//ppdportal.winnipeg.ca/Permits/PropertyPermitSearch/Start.jsp" target="_blank">Permit Search<br/>by Address</a></div>
+	<div class="smButton smLink"><a href="//ppdportal.winnipeg.ca/Permits/OccupancyPermitSearch/Start.jsp" target="_blank">Occupancy<br/>Permit Search</a></div>
+  <div class="smButton smLink">&nbsp;</div>
+</div>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("dSideMenu");
+
+function myFunction() {
+	var sticky = header.offsetTop;
+
+  if ( sticky !== 0 && window.scrollY > sticky) {
+    header.classList.add("sticky");
+  } else if ( sticky === 0 && window.scrollY > 0 ) {
+  		//header.classList.remove("sticky");
+  }  else {
+    header.classList.remove("sticky");
+  }
+  //console.log(window.pageYOffset, sticky, regOffset);
+}
+</script>
+<style>
+
+.PermitTypeSel {
+	width: 250px;
+	font-size:1.1em;
+}	
+.TypeHeader {
+	width:30%;
+	text-align:right;
+	padding-right: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size:1.2em;
+}
+.TypeSelection {
+	width:70%;
+	text-align:left;
+	padding-left: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size:1.2em;
+	
+}
+
+.MissingField {
+ background-color: #FFFF8A;
+}
+
+.RowHide {
+	display:none; 
+}
+
+.RowShow {
+	display:display;
+}
+
+</style>	  
+</head>
+
+<body>
+	
+<div id="pageContent" style="text-align:center;" >
+	<div id="main" style="max-width:500px; width:500px; display:inline-block; background-color:white;" >
+		<div id="TitleBar" style="width:100%; font-weight:Bold; font-size: 1.85em; text-align:center; padding-top:20px; padding-bottom:20px; color:#446497;">Apply for Permits</div>
+			
+
+
+
+
+		<div id="SubTitle" style="width:100%; font-size: 1.00em; text-align:center; padding-top:10px; padding-bottom:5px; color:#000000; font-weight:bold;"><span style="font-weight:bold;">Note:</span> This is a permit application only. Once your application has been reviewed, you will be contacted and advised of the status of your permit. Do not proceed with any work prior to receiving your permit.</div>
+
+		   <form name="theform" method="POST" action="../m4Apply/a_PickFolderType.jsp">
+    <input type="HIDDEN" name="lid" id="lid" value="26065027permits">
+    <input type="HIDDEN" name="command" id="command" value="">
+    <input type="HIDDEN" name="lid" id="lid" value="26065027permits">
+
+		<input type=hidden name="FolderType" 	id="FolderType" value="">
+		<input type=hidden name="FolderDesc" 	id="FolderDesc" value="">
+		<input type=hidden name="SubCode" 		id="SubCode" value="">
+		<input type=hidden name="SubDesc" 		id="SubDesc" value="">
+		<input type=hidden name="WorkCode" 		id="WorkCode" value="">
+		<input type=hidden name="WorkDesc" 		id="WorkDesc" value="">
+		<input type=hidden name="RoleID" 			id="RoleID" value="">
+		<input type=hidden name="MPReq"		 		id="MPReq" value="">
+		<input type=hidden name="PeopleCode" 	id="PeopleCode" value="470">
+		<input type=hidden name="PeopleRSN" 	id="PeopleRSN" value="824734">
+		<input type=hidden name="AppRSN"			id="AppRSN" value="">
+		<input type="hidden" name="connectionCache" value="">
+
+		</form>
+
+<p/>
+<table style="width:100%; padding:10px;">
+  <tr style=" spacing:10px;">
+    <td class="TypeHeader" >Permit Type:</td>	
+    <td class="TypeSelection" ><select class="PermitTypeSel" id="selFolderType" onchange="fProcPermitType( this.value ); " > <option value="" disabled selected >Please select a Permit Type</option> </select></td>	
+  </tr>	
+  
+  <tr id="ApplyAsList" class="RowHide">
+    <td class="TypeHeader" >Applicant Type:</td>	
+    <td class="TypeSelection" ><select class="PermitTypeSel" id="selAuthUser" onchange="fProcHeaderType(this.value); " > </select></td>	    	
+  </tr>
+  
+  <tr id="SubType"   class="RowHide">
+    <td class="TypeHeader" >Project Type:</td>	
+    <td class="TypeSelection" ><select class="PermitTypeSel" id="selFolderSubType" onchange="fProcSubCode(this.value); " disabled > <option value="" disabled selected hidden  >Please select a Permit Type first</option> </select></td>	
+  </tr>
+  
+  <tr id="WorkType"   class="RowHide">
+    <td class="TypeHeader" >Construction Type:</td>	
+    <td class="TypeSelection" ><select class="PermitTypeSel" id="selFolderWorkType" onchange="fProcWorkCode(); " disabled > <option value="" disabled selected hidden  >Please select a Permit Type first</option> </select></td>	
+  </tr>
+
+  <tr id="ECNote" style="display:none;">
+    <td colspan="2" style="padding-top:10px;"> <input id="ECConfirm" type="checkbox"> <label for="ECConfirm">I understand that a separate ES permit is required for connection of electric signs</label></td>
+  </tr>
+  <tr id="DeckNote" style="display:none;">
+  	<td colspan="2" style="padding-top:10px;"><b>Note</b>: A building permit is required for all decks with a surface over 600 mm (24 inches) above ground level or any deck that will eventually support a structure with a roof, such as a sunroom, family room, etc.</td>
+  </tr>
+
+  <tr>
+  	<td colspan="2">&nbsp;</td>
+  </tr>
+  
+	<tr id="ProceedBtn" class="RowHide">
+	  <td colspan="2" style="align:center;" > <input type="button" name="Proceed" value="Proceed" onClick="f_Proceed();"/></td>
+	</tr>
+	    
+</table>
+
+<script >
+'use strict';
+
+const cOPTS = [
+
+  {"rid":1,"ft":"AS","fd":"Accessory Structures","sc":12302,"sd":"Carport","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":1,"ft":"AS","fd":"Accessory Structures","sc":12320,"sd":"Deck/Landing","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":1,"ft":"AS","fd":"Accessory Structures","sc":12300,"sd":"Detached Garage","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":1,"ft":"AS","fd":"Accessory Structures","sc":12308,"sd":"Hot Tub/Spa","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":1,"ft":"AS","fd":"Accessory Structures","sc":12336,"sd":"Other Structure > 10 sq m","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":1,"ft":"AS","fd":"Accessory Structures","sc":12305,"sd":"Pool","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43012,"wd":"Additional Wiring"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43012,"wd":"Additional Wiring"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43282,"wd":"New Motel or Hotel"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43282,"wd":"New Motel or Hotel"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43280,"wd":"New Multi-family Dwelling"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43280,"wd":"New Multi-family Dwelling"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43288,"wd":"Other Electrical"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43288,"wd":"Other Electrical"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43033,"wd":"Repair "} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43033,"wd":"Repair "} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43024,"wd":"Rewire"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43024,"wd":"Rewire"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43281,"wd":"School (new or addition)"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43281,"wd":"School (new or addition)"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43284,"wd":"Temporary Installation"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43284,"wd":"Temporary Installation"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43286,"wd":"Travelling Show"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43286,"wd":"Travelling Show"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43292,"wd":"Wire Bldg Addition"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43292,"wd":"Wire Bldg Addition"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43294,"wd":"Wire Bldg Alteration"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43294,"wd":"Wire Bldg Alteration"} ,
+
+  {"rid":3,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43290,"wd":"Wire New Bldg"} ,
+
+  {"rid":4,"ft":"EC","fd":"Electrical Commercial","sc":41006,"sd":"Licensed Electrical Contractor","wc":43290,"wd":"Wire New Bldg"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43012,"wd":"Additional Wiring"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43027,"wd":"Air Conditioner"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43040,"wd":"Deck"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43030,"wd":"Fire Repair"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43018,"wd":"Garage/Acc Struct NEW"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43009,"wd":"Lower Level"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43021,"wd":"Pool/Hot Tub"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43033,"wd":"Repair "} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43024,"wd":"Rewire"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43006,"wd":"SFD Addition"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43003,"wd":"SFD New"} ,
+
+  {"rid":2,"ft":"ER","fd":"Electrical Residential","sc":41003,"sd":"Homeowner","wc":43015,"wd":"Service Only"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43012,"wd":"Additional Wiring"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43012,"wd":"Additional Wiring"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43027,"wd":"Air Conditioner"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43027,"wd":"Air Conditioner"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43030,"wd":"Fire Repair"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43030,"wd":"Fire Repair"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43019,"wd":"Garage/Acc Struct EXISTING"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43019,"wd":"Garage/Acc Struct EXISTING"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43018,"wd":"Garage/Acc Struct NEW"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43018,"wd":"Garage/Acc Struct NEW"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43009,"wd":"Lower Level"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43009,"wd":"Lower Level"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43021,"wd":"Pool/Hot Tub"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43021,"wd":"Pool/Hot Tub"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43033,"wd":"Repair "} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43033,"wd":"Repair "} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43024,"wd":"Rewire"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43024,"wd":"Rewire"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43006,"wd":"SFD Addition"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43006,"wd":"SFD Addition"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43003,"wd":"SFD New"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43003,"wd":"SFD New"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43015,"wd":"Service Only"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43015,"wd":"Service Only"} ,
+
+  {"rid":3,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43300,"wd":"Solar PV Install / Removal"} ,
+
+  {"rid":4,"ft":"ER","fd":"Electrical Residential","sc":41006,"sd":"Licensed Electrical Contractor","wc":43300,"wd":"Solar PV Install / Removal"} ,
+
+  {"rid":3,"ft":"ES","fd":"Electrical Signs Only","sc":41006,"sd":"Licensed Electrical Contractor","wc":43028,"wd":"Sign Repair or RetroFit "} ,
+
+  {"rid":4,"ft":"ES","fd":"Electrical Signs Only","sc":41006,"sd":"Licensed Electrical Contractor","wc":43028,"wd":"Sign Repair or RetroFit "} ,
+
+  {"rid":3,"ft":"ES","fd":"Electrical Signs Only","sc":41006,"sd":"Licensed Electrical Contractor","wc":43026,"wd":"Wire New  Sign"} ,
+
+  {"rid":4,"ft":"ES","fd":"Electrical Signs Only","sc":41006,"sd":"Licensed Electrical Contractor","wc":43026,"wd":"Wire New  Sign"} ,
+
+  {"rid":3,"ft":"ES","fd":"Electrical Signs Only","sc":41006,"sd":"Licensed Electrical Contractor","wc":43025,"wd":"Wire Sign"} ,
+
+  {"rid":4,"ft":"ES","fd":"Electrical Signs Only","sc":41006,"sd":"Licensed Electrical Contractor","wc":43025,"wd":"Wire Sign"} ,
+
+  {"rid":16,"ft":"HO","fd":"Housing","sc":11070,"sd":"SFD","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":16,"ft":"HO","fd":"Housing","sc":11050,"sd":"SFD & Att. Gar.","wc":72100,"wd":"Construct New"} ,
+
+  {"rid":7,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2010,"wd":"M1- HVAC"} ,
+
+  {"rid":8,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2010,"wd":"M1- HVAC"} ,
+
+  {"rid":13,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2010,"wd":"M1- HVAC"} ,
+
+  {"rid":9,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2011,"wd":"M2 - Fire Sprinkler System"} ,
+
+  {"rid":10,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2011,"wd":"M2 - Fire Sprinkler System"} ,
+
+  {"rid":13,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2011,"wd":"M2 - Fire Sprinkler System"} ,
+
+  {"rid":11,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2012,"wd":"M3 - Defined High Hazard"} ,
+
+  {"rid":12,"ft":"MC","fd":"Mechanical Commercial","sc":31300,"sd":"Applicant","wc":2012,"wd":"M3 - Defined High Hazard"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43245,"wd":"Additional Plumbing"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43245,"wd":"Additional Plumbing"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43208,"wd":"Drains Only (Minor Repairs)"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43208,"wd":"Drains Only (Minor Repairs)"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43280,"wd":"New Multi-family Dwelling"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43280,"wd":"New Multi-family Dwelling"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43204,"wd":"Plumb Building Addition"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43204,"wd":"Plumb Building Addition"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43202,"wd":"Plumb Building Alteration"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43202,"wd":"Plumb Building Alteration"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43200,"wd":"Plumb New Building"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43200,"wd":"Plumb New Building"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43247,"wd":"Plumbing Repair"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43247,"wd":"Plumbing Repair"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43210,"wd":"Underground Only"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43210,"wd":"Underground Only"} ,
+
+  {"rid":5,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43206,"wd":"Water Piping Only"} ,
+
+  {"rid":6,"ft":"PC","fd":"Plumbing Commercial","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43206,"wd":"Water Piping Only"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43245,"wd":"Additional Plumbing"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43012,"wd":"Additional Wiring"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43250,"wd":"Install Fixtures Only"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43202,"wd":"Plumb Building Alteration"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43242,"wd":"Plumb Lower Level"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43240,"wd":"Plumb New SFD"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43244,"wd":"Plumb SFD Addition"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43249,"wd":"Plumbing Alterations"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43246,"wd":"Plumbing Repairs"} ,
+
+  {"rid":2,"ft":"PR","fd":"Plumbing Residential","sc":41003,"sd":"Homeowner","wc":43248,"wd":"Rough In Outlets Only"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43245,"wd":"Additional Plumbing"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43245,"wd":"Additional Plumbing"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43250,"wd":"Install Fixtures Only"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43250,"wd":"Install Fixtures Only"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43202,"wd":"Plumb Building Alteration"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43202,"wd":"Plumb Building Alteration"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43242,"wd":"Plumb Lower Level"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43242,"wd":"Plumb Lower Level"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43240,"wd":"Plumb New SFD"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43240,"wd":"Plumb New SFD"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43244,"wd":"Plumb SFD Addition"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43244,"wd":"Plumb SFD Addition"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43249,"wd":"Plumbing Alterations"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43249,"wd":"Plumbing Alterations"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43246,"wd":"Plumbing Repairs"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43246,"wd":"Plumbing Repairs"} ,
+
+  {"rid":5,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43248,"wd":"Rough In Outlets Only"} ,
+
+  {"rid":6,"ft":"PR","fd":"Plumbing Residential","sc":41009,"sd":"Licensed Plumbing Contractor","wc":43248,"wd":"Rough In Outlets Only"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22521,"sd":"Billboard - Facia","wc":24500,"wd":"Erect"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22521,"sd":"Billboard - Facia","wc":24508,"wd":"Replace Face(s) Only"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22522,"sd":"Billboard - Projecting","wc":24500,"wd":"Erect"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22522,"sd":"Billboard - Projecting","wc":24508,"wd":"Replace Face(s) Only"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22523,"sd":"Billboard - Standing","wc":24500,"wd":"Erect"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22523,"sd":"Billboard - Standing","wc":24508,"wd":"Replace Face(s) Only"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22511,"sd":"Canopy Sign","wc":24500,"wd":"Erect"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22511,"sd":"Canopy Sign","wc":24508,"wd":"Replace Face(s) Only"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22500,"sd":"Facia Sign","wc":24500,"wd":"Erect"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22500,"sd":"Facia Sign","wc":24508,"wd":"Replace Face(s) Only"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22502,"sd":"Free Standing Sign","wc":24500,"wd":"Erect"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22502,"sd":"Free Standing Sign","wc":24508,"wd":"Replace Face(s) Only"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22508,"sd":"Projecting Sign","wc":24500,"wd":"Erect"} ,
+
+  {"rid":14,"ft":"SP","fd":"Sign","sc":22508,"sd":"Projecting Sign","wc":24508,"wd":"Replace Face(s) Only"} 
+
+];
+const cAUTH = [
+
+  {"rid":1,"mpr":0,"ft":"AS","asrid":824734,"asn":"General"},
+
+  {"rid":3,"mpr":0,"ft":"EC","asrid":824734,"asn":"Electrical Contractor"},
+
+  
+
+  {"rid":3,"mpr":0,"ft":"ER","asrid":824734,"asn":"Electrical Contractor"},
+
+  {"rid":4,"mpr":0,"ft":"ER","asrid":824734,"asn":"Electrical Signee (Jeremy Vermette)"},
+
+  {"rid":2,"mpr":0,"ft":"ER","asrid":824734,"asn":"Home owner"},
+
+  {"rid":3,"mpr":0,"ft":"ES","asrid":824734,"asn":"Electrical Contractor"},
+
+  {"rid":4,"mpr":0,"ft":"ES","asrid":824734,"asn":"Electrical Signee (Jeremy Vermette)"},
+
+  {"rid":16,"mpr":0,"ft":"HO","asrid":824734,"asn":"Builders"},
+
+  {"rid":13,"mpr":1,"ft":"MC","asrid":824734,"asn":"Mechanical M-Prime"},
+
+  {"rid":7,"mpr":0,"ft":"MC","asrid":824734,"asn":"Mechanical M1 Contractor"},
+
+  {"rid":8,"mpr":0,"ft":"MC","asrid":824734,"asn":"Mechanical M1 Signee (Jeremy Vermette)"},
+
+  {"rid":9,"mpr":0,"ft":"MC","asrid":824734,"asn":"Mechanical M2 Contractor"},
+
+  {"rid":10,"mpr":0,"ft":"MC","asrid":824734,"asn":"Mechanical M2 Signee (Jeremy Vermette)"},
+
+  {"rid":11,"mpr":0,"ft":"MC","asrid":824734,"asn":"Mechanical M3 Contractor"},
+
+  {"rid":12,"mpr":0,"ft":"MC","asrid":824734,"asn":"Mechanical M3 Signee (Jeremy Vermette)"},
+
+  {"rid":5,"mpr":0,"ft":"PC","asrid":824734,"asn":"Plumbing Contractor"},
+
+  {"rid":6,"mpr":0,"ft":"PC","asrid":824734,"asn":"Plumbing Signee (Jeremy Vermette)"},
+
+  {"rid":6,"mpr":0,"ft":"PC","asrid":848251,"asn":"Plumbing Signee (Beans LeChat)"},
+
+  {"rid":6,"mpr":0,"ft":"PC","asrid":848365,"asn":"Plumbing Signee (Sebastian Cichosz)"},
+
+  {"rid":2,"mpr":0,"ft":"PR","asrid":824734,"asn":"Home owner"},
+
+  {"rid":5,"mpr":0,"ft":"PR","asrid":824734,"asn":"Plumbing Contractor"},
+
+  {"rid":6,"mpr":0,"ft":"PR","asrid":824734,"asn":"Plumbing Signee (Jeremy Vermette)"},
+
+  {"rid":6,"mpr":0,"ft":"PR","asrid":848251,"asn":"Plumbing Signee (Beans LeChat)"},
+
+  {"rid":6,"mpr":0,"ft":"PR","asrid":848365,"asn":"Plumbing Signee (Sebastian Cichosz)"},
+
+  {"rid":14,"mpr":0,"ft":"SP","asrid":824734,"asn":"Signs"}
+
+];
+
+
+
+
+// init call. Populate Permit Type list
+function fPopulateFolderType() {
+
+	const aDistTypes = [];
+	
+	var oType = document.getElementById('selFolderType');
+	
+	fClearList( oType );
+	fClearList(  document.getElementById('selAuthUser') );
+	fClearList(  document.getElementById('selFolderSubType') );
+	fClearList(  document.getElementById('selFolderWorkType') );
+	
+	aDistTypes.push( { val: '', disp: 'Please select a Permit Type', selected:'selected', disabled:'true' } );
+		
+	const map = new Map();
+	for ( const obj of cOPTS ) 
+	{
+    if( !map.has( obj.ft ))
+    {
+        map.set( obj.ft, true );    // set any value to Map
+        aDistTypes.push( { val: obj.ft, disp: obj.fd });  // value / display
+    }
+	}
+
+	if ( aDistTypes.length > 0 )	
+	{
+		PopulateSelect( oType, aDistTypes, 1);
+	}
+		
+}
+
+function fProcPermitType( oVal )
+{
+	document.getElementById('ApplyAsList').classList.remove('RowShow');
+	document.getElementById('ApplyAsList').classList.add('RowHide');
+
+	document.getElementById('SubType').classList.remove('RowShow');				
+	document.getElementById('SubType').classList.add('RowHide');
+
+	document.getElementById('WorkType').classList.remove('RowShow');				
+	document.getElementById('WorkType').classList.add('RowHide');
+
+	document.getElementById('ProceedBtn').classList.remove('RowShow');		
+	document.getElementById('ProceedBtn').classList.add('RowHide');
+	
+	// Clear Sub and Work lists
+	fClearList(  document.getElementById('selAuthUser') );
+	fClearList(  document.getElementById('selFolderSubType') );
+	fClearList(  document.getElementById('selFolderWorkType') );
+		
+	document.getElementById('selFolderSubType').disabled = true;
+	document.getElementById('selFolderWorkType').disabled = true;
+	
+	// Check if AS needs to be displayed, if so, disp and enable only that. Otherwise, populate sub list. Enable sub list.
+	var aAuthList = [];
+	var iShowAsList = 0;
+	var iLoadSubList = 0;
+	
+	for ( const obj of cAUTH )
+	{
+		// If same FolderType and not already in list, push onto array.
+		if ( obj.ft === oVal && aAuthList.map(function(e) { return e.val; }).indexOf( obj.asrid + obj.rid ) === -1 )	   
+		  aAuthList.push( { val: obj.rid+'|'+obj.asrid, disp: obj.asn } );
+	}
+	
+	if ( aAuthList.length > 0 )
+	{
+		var oObj = document.getElementById('selAuthUser');
+		if ( aAuthList.length === 1 && aAuthList[0].val == document.getElementById('PeopleRSN').value  )
+		{
+			 aAuthList[0].selected = true;
+			 aAuthList[0].disabled = true;
+			 iShowAsList = 0;
+			 iLoadSubList = 1;			
+		}
+		else if ( aAuthList.length === 1 )
+		{
+			 aAuthList[0].selected = true;
+			 aAuthList[0].disabled = true;
+			 iShowAsList = 0;
+			 iLoadSubList = 1;
+		}
+		else
+		{
+			aAuthList.unshift( { val:'', disp:'Please select a Licence to use.', selected:true, disabled:true } );
+			iShowAsList = 1;
+			iLoadSubList = 0;
+		}
+			
+		PopulateSelect(oObj, aAuthList, 0);
+	  if ( iShowAsList !== 0 )
+	  {
+			if ( ['EC','PC','MC','ER','PR'].includes( document.getElementById('selFolderType').value ) )
+			{
+				document.getElementById('ApplyAsList').classList.remove('RowHide');
+				document.getElementById('ApplyAsList').classList.add('RowShow');
+		
+				document.getElementById('SubType').classList.add('RowHide');
+				document.getElementById('SubType').classList.remove('RowShow');
+			}			
+			else
+			{
+		
+				document.getElementById('ApplyAsList').classList.add('RowHide');
+				document.getElementById('ApplyAsList').classList.remove('RowShow');
+		
+				document.getElementById('SubType').classList.remove('RowHide');
+				document.getElementById('SubType').classList.add('RowShow');
+			}
+    }
+	  
+	  if ( iLoadSubList === 1 )
+	  	CreateSubList();
+
+	  fCheckSelOpts();
+	}
+	else 		 
+		console.log('this is problematic...');	
+	
+}
+
+function fProcHeaderType( oVal )
+{
+	CreateSubList();
+}
+
+function fProcSubCode( oVal )
+{
+	CreateWorkList();
+}
+
+function fProcWorkCode( oVal )
+{
+	ShowProceed();
+}
+
+
+
+function fClearList(oObj)
+{
+	while ( oObj.options.length > 0 ) { oObj.options.remove(0); }
+}
+
+// Process a selection from the Permit type list
+function fProcPermSel(oVal) 
+{
+
+}
+
+// Take value from Permit Type, populate a list of Sub Types.
+function CreateSubList()
+{
+  var oPermitVal = document.getElementById('selFolderType').value;
+	var sAppValue  = document.getElementById('selAuthUser').value;
+	
+	if ( ['EC','PC','MC','ER','PR'].includes( document.getElementById('selFolderType').value ) )
+	{
+		document.getElementById('ApplyAsList').classList.remove('RowHide');
+		document.getElementById('ApplyAsList').classList.add('RowShow');
+
+		document.getElementById('SubType').classList.add('RowHide');
+		document.getElementById('SubType').classList.remove('RowShow');
+	}			
+	else
+	{
+
+		document.getElementById('ApplyAsList').classList.add('RowHide');
+		document.getElementById('ApplyAsList').classList.remove('RowShow');
+
+		document.getElementById('SubType').classList.remove('RowHide');
+		document.getElementById('SubType').classList.add('RowShow');
+	}
+	
+	if ( sAppValue.length === 0 )	return;
+
+	var aAppValue = sAppValue.split('|');
+	var oSub = document.getElementById('selFolderSubType');
+	
+	fClearList(  document.getElementById('selFolderWorkType') );
+	
+	var aSubTypes = [];
+	
+	var iLoadWorkList = 0;
+	
+	const map = new Map();
+	for ( const obj of cOPTS ) 
+	{
+    if( obj.rid === Number(aAppValue[0]) && !map.has( obj.sc ) )
+    {
+      map.set( obj.sc, true );    // set any value to Map	
+      aSubTypes.push( { val: aAppValue[0] + '|' + obj.sc, disp: obj.sd });  // rid | value / display
+    }
+	}
+	
+	if ( aSubTypes.length === 1 ) 
+	{
+		// auto select, disable, show work list
+		aSubTypes[0].selected = true;
+		aSubTypes[0].disabled = true;
+		iLoadWorkList = 1;
+	}
+	else
+	{
+		aSubTypes.unshift( { val: '', disp:'Please select ...', selected:true, disabled:true } );
+		iLoadWorkList = 0;
+	}
+		
+	PopulateSelect( oSub, aSubTypes );
+	document.getElementById('selFolderSubType').disabled = false;
+	
+	if ( iLoadWorkList === 1 )
+	  CreateWorkList();
+	//fUpdateWorkCodes( oVal, aSubTypes[0].val );  // First item will be selected, use it.	
+}
+
+function CreateWorkList()
+{
+	document.getElementById('WorkType').classList.remove('RowHide');
+	document.getElementById('WorkType').classList.add('RowShow');
+	
+
+	var sSubValue  = document.getElementById('selFolderSubType').value;
+	
+	if ( sSubValue.length === 0 )	return;
+	var aSubValue = sSubValue.split('|');	
+	
+	if ( sSubValue.length !== 0 )
+	{
+		var oWork = document.getElementById('selFolderWorkType');
+		var aWorkTypes = [];
+		
+		const	map = new Map();
+		for ( const obj of cOPTS ) 
+		{
+	    if( obj.rid === Number(aSubValue[0]) && obj.sc === Number(aSubValue[1]) && !map.has( obj.wc ) )
+	    {
+        map.set( obj.wc, true );    // set any value to Map
+        aWorkTypes.push( { val: obj.wc, disp: obj.wd });  // value / display
+	    }
+		}
+		
+		if ( aWorkTypes.length === 1 )
+		{
+			aWorkTypes[0].selected = true;
+			aWorkTypes[0].disabled = true;
+			ShowProceed();
+		}
+		else
+		{
+			aWorkTypes.unshift( { val: '', disp:'Please select ...', selected:true, disabled:true } );
+		}
+		
+		PopulateSelect( oWork, aWorkTypes );
+		document.getElementById('selFolderWorkType').disabled = false;
+		
+		fCheckSelOpts();		
+	}
+}
+
+function ShowProceed()
+{
+	document.getElementById('ProceedBtn').classList.remove('RowHide');
+	document.getElementById('ProceedBtn').classList.add('RowShow');
+}
+
+function PopulateSelect(oObj, aList, iMinLen = 0)
+{
+	while ( oObj.children.length > iMinLen) {
+	  oObj.children[0].remove();
+	}	
+	
+	for( var i = 0; i < aList.length; i++) 
+	{
+    var el = document.createElement("option");
+    el.textContent = aList[i].disp;
+    el.value = aList[i].val;
+    if ( aList[i].disabled ) el.disabled = true;
+    if ( aList[i].selected ) el.selected = true;
+    oObj.appendChild(el);		
+	}
+	
+}
+
+function fCheckSelOpts()
+{
+	var aValues = [
+	  document.getElementById('selFolderType').value,
+	  document.getElementById('selFolderSubType').value,
+	  document.getElementById('selFolderWorkType').value
+	 ];
+	 var aSubValue = aValues[1].split('|');	
+	
+	document.getElementById('ECNote').style.display = ( aValues[0] === 'EC' ? '' : 'none' );
+	document.getElementById('DeckNote').style.display = ( aValues[0] === 'AS' && aSubValue[1] === '12320' ? '' : 'none' );
+}
+
+
+function f_click(argFolderType,argFolderDesc) {
+  theform.FolderType.value = argFolderType;
+  theform.FolderDesc.value = argFolderDesc;
+  theform.action = '../m4Apply/b_AddFolderContr.jsp'
+  theform.submit();
+}
+
+function f_Add(sNote, sAdd) { if ( sNote.length > 0 ) sNote += '\n'; sNote += sAdd; }
+
+
+function f_Proceed() 
+{
+	var oFT = document.getElementById('selFolderType');
+	var oUser = document.getElementById('selAuthUser');
+	var oSC = document.getElementById('selFolderSubType');
+	var oWC = document.getElementById('selFolderWorkType');
+	
+	// Check form values
+  if ( oFT.value.length === 0 )
+	{
+		alert('Please select a Permit Type.');
+		document.getElementById('selFolderType').classList.add('MissingField');
+		document.getElementById('selFolderType').focus();
+		return;
+	}
+	else if ( oUser.value.length === 0 )
+	{
+		alert('Please select an application Type.');
+		document.getElementById('selAuthUser').classList.add('MissingField');
+		document.getElementById('selAuthUser').focus();
+		return;
+	}	
+	else if ( oSC.value.length === 0 ) 
+	{
+		alert('Please select a Sub Type.');
+		document.getElementById('selFolderSubType').classList.add('MissingField');
+		document.getElementById('selFolderSubType').focus();
+		return;		
+	}
+	else if ( oWC.value.length === 0 ) 
+	{
+		alert('Please select a Work Type.');
+		document.getElementById('selFolderWorkType').classList.add('MissingField');
+		document.getElementById('selFolderWorkType').focus();
+		return;		
+	} 
+	else if ( document.getElementById('ECNote').style.display === '' && document.getElementById('ECConfirm').checked === false ) 
+	{
+		alert('You must awknowledge the Electric Signs notice.');
+		document.getElementById('ECNote').classList.add('MissingField');
+		document.getElementById('ECNote').focus();
+		return;				
+	}
+
+	var aUser = oUser.value.split('|');  	// role|peoplersn
+	var aSC = oSC.value.split('|');				// role|subcode
+	
+	if ( aUser[0] != aSC[0] )
+	{
+		alert('Role mismatch. Please reselect all values.');
+		return;
+	}
+	
+	var iMPR = -1;
+	
+	//locate role desc via dumb method so IE can understand
+	for ( var i=0; i < cAUTH.length; i++ )
+	{
+		if ( cAUTH[i].ft == oFT.value && cAUTH[i].rid == aUser[0] && cAUTH[i].asrid == aUser[1] )
+		{
+			iMPR = Number( cAUTH[i].mpr );
+			break;
+		}
+	}	
+	
+	if ( iMPR === -1 )
+	{
+		alert('Invalid data. Please reload the page and try again.');
+		return;
+	}
+	
+	//I guess use this crap
+	theform.FolderType.value = oFT.value;
+	theform.FolderDesc.value = oFT.item( oFT.selectedIndex ).text;
+	theform.SubCode.value = aSC[1];
+	theform.SubDesc.value = oSC.item( oSC.selectedIndex ).text;
+	theform.WorkCode.value = oWC.value;
+	theform.WorkDesc.value = oWC.item( oWC.selectedIndex ).text;
+	theform.RoleID.value =  aUser[0];
+	theform.MPReq.value = iMPR;
+	theform.AppRSN.value = aUser[1];
+/*
+	document.getElementById('FolderType').value = oFT.value;
+	document.getElementById('FolderDesc').value = oFT.item( oFT.selectedIndex ).text;
+	document.getElementById('SubCode').value = aSC[1];
+	document.getElementById('SubDesc').value = oSC.item( oSC.selectedIndex ).text;
+	document.getElementById('WorkCode').value = oWC.value;
+	document.getElementById('WorkDesc').value = oWC.item( oWC.selectedIndex ).text;
+	document.getElementById('RoleID').value =  aUser[0];
+	document.getElementById('MPReq').value = iMPR;
+	document.getElementById('AppRSN').value = aUser[1];
+*/	
+	console.log(theform);		
+	theform.action = ( iMPR === 1 ? 'b1_SelectMechContr.jsp' : 'c_AddFolderContr.jsp' );
+	theform.submit();		
+
+}
+
+(function() {
+	//console.log('populating page data.', Date.now());
+	fPopulateFolderType();
+})();
+
+
+</script>
+
+   
+	</div>
+</div>
+</body>  
+</html>
