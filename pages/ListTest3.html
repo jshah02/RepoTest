@@ -55,7 +55,6 @@
 
 </body>
 
-
 <script type="text/javascript">
 'use strict';
 
@@ -172,14 +171,14 @@ const cCITIES = [
 {"city":"Three Rivers","prov":"Prince Edward Island"},
 {"city":"Gatineau","prov":"Quebec"},
 {"city":"Laval","prov":"Quebec"},
-{"city":"Lévis","prov":"Quebec"},
+{"city":"Lï¿½vis","prov":"Quebec"},
 {"city":"Longueuil","prov":"Quebec"},
 {"city":"Montreal","prov":"Quebec"},
-{"city":"Qué	bec","prov":"Quebec"},
+{"city":"Quï¿½	bec","prov":"Quebec"},
 {"city":"Saguenay","prov":"Quebec"},
 {"city":"Sherbrooke","prov":"Quebec"},
 {"city":"Terrebonne","prov":"Quebec"},
-{"city":"Trois-Rivières","prov":"Quebec"},
+{"city":"Trois-Riviï¿½res","prov":"Quebec"},
 {"city":"Estevan","prov":"Saskatchewan"},
 {"city":"Lloydminster","prov":"Saskatchewan"},
 {"city":"Moose Jaw","prov":"Saskatchewan"},
@@ -231,7 +230,6 @@ function fPopulateCanadianProvinces()
 	const aProvList = [...new Set(cCITIES.map(item => item.prov))];
 	console.log(aProvList);
 	let dlProvs = document.getElementById('provsel-list');
-	
 	
 	aProvList.forEach(function(item){
 		var option = document.createElement('option');
